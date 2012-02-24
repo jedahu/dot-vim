@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<sb:post n=''
+  xmlns:sb='http://github.com/jedahu/static-blog'
+  xmlns='http://www.w3.org/1999/xhtml'>
+  <sb:meta>
+    <sb:title></sb:title>
+    <sb:ctime></sb:ctime>
+  </sb:meta>
+  <sb:content>
+  </sb:content>
+</sb:post>
