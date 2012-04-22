@@ -18,6 +18,8 @@ Bundle 'groenewege/vim-less'
 Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 Bundle 'croaker/mustang-vim'
 Bundle 'vim-scripts/UniCycle'
+Bundle 'bufkill.vim'
+Bundle 'dgrnbrg/paredit-vim'
 
 filetype plugin indent on
 
@@ -197,6 +199,8 @@ set backupdir=~/.vim-backup//
 set directory=~/.vim-backup//
 set noswapfile
 
+set noswapfile
+
 set nojoinspaces
 
 " Markdown folding
@@ -231,3 +235,9 @@ au BufEnter *.sh setlocal foldexpr=MarkdownLevel(comment#hash)
 
 set guioptions-=T
 set guioptions-=m
+
+au BufNewFile,BufRead *.cljs call PareditInitBuffer()
+
+cnoreabbrev bd BD
+cnoreabbrev bw BW
+cnoreabbrev bun BUN
