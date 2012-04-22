@@ -15,6 +15,9 @@ Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'VimClojure'
 Bundle 'groenewege/vim-less'
+Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
+Bundle 'croaker/mustang-vim'
+Bundle 'vim-scripts/UniCycle'
 
 filetype plugin indent on
 
@@ -133,7 +136,7 @@ set softtabstop=2
 au Bufenter *.hs compiler ghc
 let g:haddock_browser = "google-chrome"
 
-set relativenumber
+"set relativenumber
 set backspace=indent,eol,start
 set ttyfast
 set cursorline
@@ -192,6 +195,7 @@ let vimclojure#ParenRainbow = 1
 
 set backupdir=~/.vim-backup//
 set directory=~/.vim-backup//
+set noswapfile
 
 set nojoinspaces
 
@@ -225,3 +229,5 @@ au BufEnter *.clj,*.cljs setlocal foldexpr=MarkdownLevel(comment#semi)
 au BufEnter *.js setlocal foldexpr=MarkdownLevel(comment#slashes)
 au BufEnter *.sh setlocal foldexpr=MarkdownLevel(comment#hash)
 
+set guioptions-=T
+set guioptions-=m
