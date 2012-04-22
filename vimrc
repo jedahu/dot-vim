@@ -15,6 +15,8 @@ Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'VimClojure'
 Bundle 'groenewege/vim-less'
+Bundle 'bufkill.vim'
+Bundle 'dgrnbrg/paredit-vim'
 
 filetype plugin indent on
 
@@ -193,6 +195,8 @@ let vimclojure#ParenRainbow = 1
 set backupdir=~/.vim-backup//
 set directory=~/.vim-backup//
 
+set noswapfile
+
 set nojoinspaces
 
 " Markdown folding
@@ -225,3 +229,8 @@ au BufEnter *.clj,*.cljs setlocal foldexpr=MarkdownLevel(comment#semi)
 au BufEnter *.js setlocal foldexpr=MarkdownLevel(comment#slashes)
 au BufEnter *.sh setlocal foldexpr=MarkdownLevel(comment#hash)
 
+au BufNewFile,BufRead *.cljs call PareditInitBuffer()
+
+cnoreabbrev bd BD
+cnoreabbrev bw BW
+cnoreabbrev bun BUN
