@@ -19,7 +19,9 @@ Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 Bundle 'croaker/mustang-vim'
 Bundle 'vim-scripts/UniCycle'
 Bundle 'bufkill.vim'
-Bundle 'dgrnbrg/paredit-vim'
+"Bundle 'paredit.vim'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
 
 filetype plugin indent on
 
@@ -241,3 +243,11 @@ au BufNewFile,BufRead *.cljs call PareditInitBuffer()
 cnoreabbrev bd BD
 cnoreabbrev bw BW
 cnoreabbrev bun BUN
+
+set list listchars=trail:·,tab:»·
+autocmd InsertEnter * set nolist
+autocmd InsertLeave * set list
+
+let g:paredit_matchlines=2000
+command! Ptoggle call PareditToggle()
+let g:paredit_mode=0
