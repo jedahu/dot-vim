@@ -22,6 +22,9 @@ Bundle 'bufkill.vim'
 "Bundle 'paredit.vim'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+ Bundle 'romanvbabenko/vim-asciidoc'
+Bundle 'Jinja'
+Bundle 'wavded/vim-stylus'
 
 filetype plugin indent on
 
@@ -40,7 +43,7 @@ set autoindent
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
-set background=dark
+set background=light
 " highlight Normal ctermfg=black ctermbg=white
 " highlight Cursor ctermbg=black
 
@@ -68,9 +71,6 @@ if has("autocmd")
   filetype indent on
   filetype plugin on
 endif
-
-" Use skeleton files.
-autocmd! BufNewFile * silent! 0r ~/.vim/skel/template.%:e
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
@@ -174,11 +174,12 @@ let g:blogger_pass = 'passwordwitha32qazxds'
 "  runtime! plugin/guicolorscheme.vim
 "  GuiColorScheme mustang
 if has('gui_running')
-  colorscheme mustang
+  colorscheme solarized
 else
   " For 8-color 16-color terminals or for gvim, just use the
   " regular :colorscheme command.
-  colorscheme default
+  colorscheme solarized
+  set background=dark
 endif
 
 au BufEnter *.hs compiler ghc
@@ -244,10 +245,21 @@ cnoreabbrev bd BD
 cnoreabbrev bw BW
 cnoreabbrev bun BUN
 
-set list listchars=trail:·,tab:»·
+set list listchars=trail:·,tab:»·,nbsp:⍽
 autocmd InsertEnter * set nolist
 autocmd InsertLeave * set list
 
 let g:paredit_matchlines=2000
 command! Ptoggle call PareditToggle()
 let g:paredit_mode=0
+
+function! InsertHLine()
+let n = &textwidth-virtcol('$')+1
+let char = getline('.')[col('.')-1]
+if char == ''
+  let char = getline('.')[col('.')-2]
+endif
+let myline = repeat(char, n)
+return myline
+endfunction
+inoremap <expr> <C-o> InsertHLine()
