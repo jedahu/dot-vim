@@ -6,7 +6,6 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
 Bundle 'L9'
 Bundle 'bufexplorer.zip'
 Bundle 'FuzzyFinder'
@@ -15,8 +14,12 @@ Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'VimClojure'
 Bundle 'groenewege/vim-less'
+Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
+Bundle 'croaker/mustang-vim'
+Bundle 'vim-scripts/UniCycle'
 Bundle 'bufkill.vim'
 "Bundle 'paredit.vim'
+Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'bouzuya/vim-ibus'
@@ -26,6 +29,13 @@ Bundle 'ervandew/supertab'
 Bundle 'lh-vim-lib'
 Bundle 'pydave/AsyncCommand'
 Bundle 'JavaImp.vim--Lee'
+Bundle 'tpope/vim-eunuch'
+Bundle 'romanvbabenko/vim-asciidoc'
+Bundle 'Jinja'
+Bundle 'wavded/vim-stylus'
+Bundle 'DrawIt'
+Bundle 'elzr/vim-json'
+Bundle 'plasticboy/vim-markdown'
 
 filetype plugin indent on
 
@@ -44,7 +54,7 @@ set autoindent
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
-set background=dark
+set background=light
 " highlight Normal ctermfg=black ctermbg=white
 " highlight Cursor ctermbg=black
 
@@ -144,7 +154,7 @@ set softtabstop=2
 au Bufenter *.hs compiler ghc
 let g:haddock_browser = "google-chrome"
 
-set relativenumber
+"set relativenumber
 set backspace=indent,eol,start
 set ttyfast
 set cursorline
@@ -178,11 +188,12 @@ let g:blogger_pass = 'passwordwitha32qazxds'
 "  runtime! plugin/guicolorscheme.vim
 "  GuiColorScheme mustang
 if has('gui_running')
-  colorscheme mustang
+  colorscheme solarized
 else
   " For 8-color 16-color terminals or for gvim, just use the
   " regular :colorscheme command.
-  colorscheme default
+  colorscheme solarized
+  set background=dark
 endif
 
 au BufEnter *.hs compiler ghc
@@ -204,6 +215,7 @@ let vimclojure#FuzzyIndent = 1
 
 set backupdir=~/.vim-backup//
 set directory=~/.vim-backup//
+set noswapfile
 
 set noswapfile
 
@@ -239,14 +251,18 @@ au BufEnter *.clj,*.cljs setlocal foldexpr=MarkdownLevel(comment#semi)
 au BufEnter *.js setlocal foldexpr=MarkdownLevel(comment#slashes)
 au BufEnter *.sh setlocal foldexpr=MarkdownLevel(comment#hash)
 
+set guioptions-=T
+set guioptions-=m
+
+"au BufNewFile,BufRead *.cljs call PareditInitBuffer()
+
 cnoreabbrev bd BD
 cnoreabbrev bw BW
 cnoreabbrev bun BUN
 
-set list listchars=trail:·,tab:»·
+set list listchars=trail:·,tab:»·,nbsp:⍽
 autocmd InsertEnter * set nolist
 autocmd InsertLeave * set list
-
 
 "autocmd BufRead,BufNewFile *.js compiler make_closure
 "autocmd BufWritePost *.js call ClosureLinter()
@@ -276,3 +292,18 @@ let g:asynccommand_prg = 'gvim'
 
 
 let g:JavaImpDataDir = $HOME.'/.vim/JavaImp'
+
+"let g:paredit_matchlines=2000
+"command! Ptoggle call PareditToggle()
+"let g:paredit_mode=0
+
+function! InsertHLine()
+let n = &textwidth-virtcol('$')+1
+let char = getline('.')[col('.')-1]
+if char == ''
+  let char = getline('.')[col('.')-2]
+endif
+let myline = repeat(char, n)
+return myline
+endfunction
+inoremap <expr> <C-o> InsertHLine()
