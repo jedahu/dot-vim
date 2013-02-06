@@ -6,7 +6,6 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
 Bundle 'L9'
 Bundle 'bufexplorer.zip'
 Bundle 'FuzzyFinder'
@@ -20,11 +19,16 @@ Bundle 'croaker/mustang-vim'
 Bundle 'vim-scripts/UniCycle'
 Bundle 'bufkill.vim'
 "Bundle 'paredit.vim'
+Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
- Bundle 'romanvbabenko/vim-asciidoc'
+Bundle 'tpope/vim-eunuch'
+Bundle 'romanvbabenko/vim-asciidoc'
 Bundle 'Jinja'
 Bundle 'wavded/vim-stylus'
+Bundle 'DrawIt'
+Bundle 'elzr/vim-json'
+Bundle 'plasticboy/vim-markdown'
 
 filetype plugin indent on
 
@@ -239,7 +243,7 @@ au BufEnter *.sh setlocal foldexpr=MarkdownLevel(comment#hash)
 set guioptions-=T
 set guioptions-=m
 
-au BufNewFile,BufRead *.cljs call PareditInitBuffer()
+"au BufNewFile,BufRead *.cljs call PareditInitBuffer()
 
 cnoreabbrev bd BD
 cnoreabbrev bw BW
@@ -249,9 +253,9 @@ set list listchars=trail:·,tab:»·,nbsp:⍽
 autocmd InsertEnter * set nolist
 autocmd InsertLeave * set list
 
-let g:paredit_matchlines=2000
-command! Ptoggle call PareditToggle()
-let g:paredit_mode=0
+"let g:paredit_matchlines=2000
+"command! Ptoggle call PareditToggle()
+"let g:paredit_mode=0
 
 function! InsertHLine()
 let n = &textwidth-virtcol('$')+1
