@@ -19,6 +19,13 @@ Bundle 'bufkill.vim'
 "Bundle 'paredit.vim'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'bouzuya/vim-ibus'
+Bundle 'pangloss/vim-javascript'
+Bundle 'javacomplete'
+Bundle 'ervandew/supertab'
+Bundle 'lh-vim-lib'
+Bundle 'pydave/AsyncCommand'
+Bundle 'JavaImp.vim--Lee'
 
 filetype plugin indent on
 
@@ -67,7 +74,7 @@ if has("autocmd")
 endif
 
 " Use skeleton files.
-autocmd! BufNewFile * silent! 0r ~/.vim/skel/template.%:e
+autocmd BufNewFile *.sb silent! 0r ~/.vim/skel/template.sb
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
@@ -121,11 +128,11 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
 " remap to C-N C-P
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+"  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " indentation
 set expandtab
@@ -189,10 +196,11 @@ let g:ghc = "ghc"
 
 let vimclojure#WantNailgun = 0
 " let vimclojure#NailgunClient = "~/bin/ng"
-let vimclojure#HighlightBuiltins = 1
-let vimclojure#HighlightContrib = 1
+let vimclojure#HighlightBuiltins = 0
+let vimclojure#HighlightContrib = 0
 let vimclojure#DynamicHighlighting = 1
 let vimclojure#ParenRainbow = 1
+let vimclojure#FuzzyIndent = 1
 
 set backupdir=~/.vim-backup//
 set directory=~/.vim-backup//
@@ -231,8 +239,6 @@ au BufEnter *.clj,*.cljs setlocal foldexpr=MarkdownLevel(comment#semi)
 au BufEnter *.js setlocal foldexpr=MarkdownLevel(comment#slashes)
 au BufEnter *.sh setlocal foldexpr=MarkdownLevel(comment#hash)
 
-au BufNewFile,BufRead *.cljs call PareditInitBuffer()
-
 cnoreabbrev bd BD
 cnoreabbrev bw BW
 cnoreabbrev bun BUN
@@ -241,6 +247,32 @@ set list listchars=trail:·,tab:»·
 autocmd InsertEnter * set nolist
 autocmd InsertLeave * set list
 
-let g:paredit_matchlines=2000
-command! Ptoggle call PareditToggle()
-let g:paredit_mode=0
+
+"autocmd BufRead,BufNewFile *.js compiler make_closure
+"autocmd BufWritePost *.js call ClosureLinter()
+"function! ClosureLinter()
+"  compiler closure_linter
+"  make
+"  cwindow
+"  compiler closure
+"endfunction
+
+autocmd BufRead,BufNewFile *.java setlocal omnifunc=javacomplete#Complete
+"autocmd BufRead,BufNewFile *.java setlocal completefunc=javacomplete#CompleteParamsInfo
+
+let g:java_classpath = expand('~/opt/android-sdks/platforms/android-8/android.jar')
+
+let g:SuperTabMappingForward = '<c-space>'
+let g:SuperTabMappingBackward = '<s-c-space>'
+let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
+"let g:SuperTabContextDiscoverDiscovery = ['&omnifunc:<c-x><c-o>', '&completefunc:<c-x><c-u>']
+let g:SuperTabDefaultCompletionType = 'context'
+"let g:SuperTabContextDefaultCompletionType = '<c-p>'
+let g:SuperTabLongestEnhanced = 1
+let g:SuperTabLongestHighlight = 1
+
+
+let g:asynccommand_prg = 'gvim'
+
+
+let g:JavaImpDataDir = $HOME.'/.vim/JavaImp'
