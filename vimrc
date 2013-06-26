@@ -12,7 +12,6 @@ Bundle 'FuzzyFinder'
 Bundle 'VimIRC.vim'
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'VimClojure'
 Bundle 'groenewege/vim-less'
 Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 Bundle 'croaker/mustang-vim'
@@ -36,6 +35,16 @@ Bundle 'wavded/vim-stylus'
 Bundle 'DrawIt'
 Bundle 'elzr/vim-json'
 Bundle 'plasticboy/vim-markdown'
+Bundle 'mikewest/vimroom'
+Bundle 'vim-scala'
+
+Bundle 'tpope/vim-fireplace'
+"Bundle 'tpope/vim-classpath'
+Bundle 'guns/vim-clojure-static'
+
+Bundle 'bogado/file-line'
+
+"Bundle 'ktvoelker/sbt-vim'
 
 filetype plugin indent on
 
@@ -114,7 +123,7 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
-set wildchar=<Tab> wildmenu wildmode=full
+set wildchar=<Tab> wildmenu wildmode=list:longest,full
 
 " CTAGS
 set tags+=~/.ctags/cpp
@@ -261,8 +270,8 @@ cnoreabbrev bw BW
 cnoreabbrev bun BUN
 
 set list listchars=trail:·,tab:»·,nbsp:⍽
-autocmd InsertEnter * set nolist
-autocmd InsertLeave * set list
+"autocmd InsertEnter * set nolist
+"autocmd InsertLeave * set list
 
 "autocmd BufRead,BufNewFile *.js compiler make_closure
 "autocmd BufWritePost *.js call ClosureLinter()
@@ -275,6 +284,9 @@ autocmd InsertLeave * set list
 
 autocmd BufRead,BufNewFile *.java setlocal omnifunc=javacomplete#Complete
 "autocmd BufRead,BufNewFile *.java setlocal completefunc=javacomplete#CompleteParamsInfo
+
+autocmd BufRead,BufNewFile *.scala setlocal ft=scala
+autocmd BufRead,BufNewFile *.fr setlocal ft=haskell
 
 let g:java_classpath = expand('~/opt/android-sdks/platforms/android-8/android.jar')
 
@@ -307,3 +319,5 @@ let myline = repeat(char, n)
 return myline
 endfunction
 inoremap <expr> <C-o> InsertHLine()
+
+set synmaxcol=100
